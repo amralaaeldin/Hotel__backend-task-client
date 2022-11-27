@@ -8,6 +8,9 @@
   background-color: aliceblue;
   box-sizing: border-box;
 }
+#root {
+  background-color: aliceblue;
+}
 
 .App-logo {
   height: 40vmin;
@@ -44,8 +47,22 @@
   }
 }
 
+.logo {
+  font-style: italic;
+  font-family: cursive;
+  color: rgb(250, 175, 0);
+  font-size: 1.4em;
+  text-align: left;
+}
+
+form.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .stars {
-  color: #ffe234
+  color: rgb(250, 175, 0)
 }
 
 .discount {
@@ -69,20 +86,11 @@
   justify-content: center;
   align-items: center;
   padding: 30px 100px;
+  min-height: calc(100vh - 200px);
 }
+
 .card {
-  padding: 15px;
   margin: 15px 0;
-  color: #1f2022;
-  letter-spacing: 0.2px;
-  width: 80%;
-  max-width: 500px;
-  border: 1px solid rgb(221, 202, 202);
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
 }
 .card:hover {
   box-shadow: rgb(201, 182, 182) 0px 0.5px 4px 0.5px;
@@ -104,12 +112,25 @@
   margin-bottom: 10px;
 }
 
-p.amenities {
+span.amenities {
   font-weight: 500;
   color: #303235;
   line-height: 1.6em;
 }
-p.amenities span{
+span.amenities span{
   font-weight: 400;
   font-style: italic;
+}
+
+.pages {
+  margin-top: 15px;
+}
+
+.error {
+  color: rgb(167, 57, 57);
+}
+
+.app-header {
+  background-color: #6690b4;
+  color: #fff;
 }

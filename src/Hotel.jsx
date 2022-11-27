@@ -1,5 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import './index.css'
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Slider from '@mui/material/Slider';
+import logo from './react-logo.png';
+import './index.css';
+import './App.css';
 
 const starsArr = "★★★★★☆☆☆☆☆"
 const getRate = (rate) => {
@@ -7,43 +28,160 @@ const getRate = (rate) => {
 }
 
 function Hotel() {
-  const [hotels, setHotels] = useState()
+  const [data, setData] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [params, setParams] = useState('')
+  const [inputs, setInputs] = useState({ 'filter': '', 'find': '', 'max': 20000, 'min': 0, 'sort-by': '', 'sort-type': '' })
+  const [page, setPage] = useState(1)
 
-  const fetchHotels = async (params) => {
-    // const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${params}`)
-    const res = await fetch(`http://localhost:8082${params}`, {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    })
-    const data = await res.json()
-    console.log(data)
-    setHotels(data)
+  const fetchHotels = async () => {
+    setIsLoading(true)
+    try {
+      const res = await fetch(`http://localhost:8082/?format=json&page=${page}${params ? `&${params}` : ''}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      })
+      const data = await res.json()
+      setData(data)
+      setIsLoading(false)
+    } catch (err) {
+      setError(err.message)
+      setIsLoading(false)
+    }
+  }
+
+  const changePage = (e, value) => {
+    setPage(value)
+  }
+
+  const handleChange = (e, value) => {
+    if (e.target.name === 'range') return setInputs((prev) => ({ ...prev, min: value[0], max: value[1] }))
+    return setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    settingParams(inputs)
+  }
+
+  const settingParams = (obj) => {
+    let keys = Object.keys(obj)
+    let parameters = '';
+    for (let i = 0; i < keys.length; i++) {
+      parameters += `${keys[i]}=${obj[keys[i]]}${i < keys.length - 1 ? '&' : ''}`
+    }
+    setParams(parameters)
+  }
+
+  const clearFilters = () => {
+    setInputs({ 'filter': '', 'find': '', 'max': 20000, 'min': 0, 'sort-by': '', 'sort-type': '' })
+    setPage(1)
+    setParams('')
   }
 
   useEffect(() => {
-    fetchHotels('?format=json')
-  }, [])
+    fetchHotels()
+  }, [page, params])
+
   return (
-    <div className='cards'>
-      {hotels && hotels.map((hotel, i) => (
-        <div className='card' key={hotel.name + i}>
-          <h3>
-            {hotel.name}
-          </h3>
-          <p className='details'>
-            <span className='price'>US${hotel.price}{hotel.discount && (<span className='discount'>${hotel.discount + hotel.price}</span>)}</span>
-            <span className='stars'>
-              {getRate(hotel.rate)}
-            </span>
-          </p>
-          {hotel.amenities && (<p className='amenities'>
-            Amenities: <span>{hotel.amenities.join(", ")}</span>
-          </p>)}
-        </div>
-      ))
-      }
-    </div>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar style={{ background: '#598ab4', color: '#fff' }} className='app-header' position="static">
+          <Toolbar style={{ margin: '15px' }}>
+            <Typography className='logo' variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <img style={{ width: '60px' }} src={logo} alt="logo" />
+            </Typography>
+
+            <form className="actions" onSubmit={handleSubmit}>
+              <FormControl className='sort-by' sx={{ m: 1, minWidth: 120 }} size="small">
+                <InputLabel id="demo-select-small">Sort By</InputLabel>
+                <Select
+                  labelId="demo-select-small"
+                  id="demo-select-small"
+                  name="sort-by"
+                  value={inputs['sort-by']}
+                  onChange={handleChange}
+                  label="Sort By"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={'rate'}>Rate</MenuItem>
+                  <MenuItem value={"price"}>Price</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl className='sort-type'>
+                <FormLabel id="demo-row-radio-buttons-group-label">Sort type</FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="sort-type"
+                  value={inputs['sort-type']}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel value="desc" control={<Radio />} label="Desc" />
+                  <FormControlLabel value="asc" control={<Radio />} label="Asc" />
+                </RadioGroup>
+              </FormControl>
+              <TextField className='search' name='find' value={inputs.find} onChange={handleChange} size='small' id="outlined-search" label="Search field" type="search" />
+              <FormControl name="filter" className='filter'>
+                <FormLabel id="demo-row-radio-buttons-group-label">Filter By</FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="filter"
+                  value={inputs.filter}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel value="rate" control={<Radio />} label="Rate" />
+                  <FormControlLabel value="price" control={<Radio />} label="Price" />
+                </RadioGroup>
+              </FormControl>
+              <Box className='slider' sx={{ width: 250 }}>
+                <Slider sx={{ margin: '-18px 0px' }} getAriaLabel={() => 'Filter Range'}
+                  min={inputs.filter === 'rate' ? 1 : 0}
+                  max={inputs.filter === 'rate' ? 5 : 20000}
+                  name="range"
+                  value={[inputs.min, inputs.max]}
+                  onChange={handleChange}
+                  valueLabelDisplay="auto"
+                />
+              </Box>
+              <Button type="submit" color="inherit">Apply</Button>
+              <Button type="button" onClick={clearFilters} color="inherit">Clear Filters</Button>
+            </form>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <div className='cards'>
+        {isLoading ? 'Loading...' : error ? <p className='error'>error</p> :
+          (data.data && data.data.map((hotel, i) => (
+            <Card className='card' key={hotel.name + i} sx={{ maxWidth: 345 }}>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {hotel.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {hotel.amenities && (<span className='amenities'>
+                    Amenities: <span>{hotel.amenities.join(", ")}</span>
+                  </span>)}
+                </Typography>
+              </CardContent>
+              <p className='details'>
+                <span className='price'>US${hotel.price}{hotel.discount && (<span className='discount'>${hotel.discount + hotel.price}</span>)}</span>
+                <span className='stars'>
+                  {getRate(hotel.rate)}
+                </span>
+              </p>
+            </Card>
+          )))}
+        {!isLoading && !error && data.pages > 0 && <Stack className='pages' spacing={2}>
+          <Pagination page={data.currentPage} count={data.pages} onChange={changePage} variant="outlined" shape="rounded" />
+        </Stack>}
+      </div>
+    </>
   );
 }
 
