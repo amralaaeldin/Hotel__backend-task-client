@@ -59,10 +59,25 @@ form.actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-grow: 0.5;
+}
+
+input[name="find"] {
+  color: #ddd;
+}
+
+.sort-by .MuiInputBase-root fieldset {
+  border-color: #aeb5d0;
+}
+.sort-by .MuiInputBase-root:hover fieldset {
+  border-color: #fff;
+}
+.sort-by .MuiInputBase-root.Mui-focused fieldset {
+  border-color: #fff;
 }
 
 .stars {
-  color: rgb(250, 175, 0)
+  color: rgb(250, 175, 0);
 }
 
 .discount {
@@ -92,6 +107,7 @@ form.actions {
 .card {
   margin: 15px 0;
 }
+
 .card:hover {
   box-shadow: rgb(201, 182, 182) 0px 0.5px 4px 0.5px;
   transition: all 0.2s;
@@ -105,6 +121,7 @@ form.actions {
   margin-bottom: 15px;
   font-size: 1.2em;
 }
+
 .card p.details {
   display: flex;
   justify-content: space-between;
@@ -117,7 +134,7 @@ span.amenities {
   color: #303235;
   line-height: 1.6em;
 }
-span.amenities span{
+span.amenities span {
   font-weight: 400;
   font-style: italic;
 }

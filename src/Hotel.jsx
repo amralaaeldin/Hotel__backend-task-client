@@ -88,16 +88,16 @@ function Hotel() {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar style={{ background: '#598ab4', color: '#fff' }} className='app-header' position="static">
-          <Toolbar style={{ margin: '15px' }}>
-            <Typography className='logo' variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <img style={{ width: '60px' }} src={logo} alt="logo" />
+        <AppBar style={{ background: 'rgb(15 61 100)', color: '#fff' }} className='app-header' position="static">
+          <Toolbar style={{ margin: '15px', justifyContent: 'space-between' }}>
+            <Typography className='logo' style={{ flexGrow: 'unset' }} variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <img style={{ width: '60px' }} src={logo} alt="logo" /> Hotel.com
             </Typography>
-
             <form className="actions" onSubmit={handleSubmit}>
-              <FormControl className='sort-by' sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small">Sort By</InputLabel>
+              <FormControl className='sort-by' sx={{ m: 1, minWidth: 120, }} size="small">
+                <InputLabel sx={{ color: '#fff', '&.Mui-focused': { color: "#fff" } }} id="demo-select-small">Sort By</InputLabel>
                 <Select
+                  sx={{ color: '#ddd', '& .MuiSelect-iconOutlined': { fill: '#aeb5d0', } }}
                   labelId="demo-select-small"
                   id="demo-select-small"
                   name="sort-by"
@@ -113,34 +113,55 @@ function Hotel() {
                 </Select>
               </FormControl>
               <FormControl className='sort-type'>
-                <FormLabel id="demo-row-radio-buttons-group-label">Sort type</FormLabel>
+                <FormLabel sx={{ color: "#aeb5d0", '&.Mui-focused': { color: "#ffb74d" } }} id="demo-row-radio-buttons-group-label">Sort type</FormLabel>
                 <RadioGroup
                   row
+                  color="#fff"
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="sort-type"
                   value={inputs['sort-type']}
                   onChange={handleChange}
                 >
-                  <FormControlLabel value="desc" control={<Radio />} label="Desc" />
-                  <FormControlLabel value="asc" control={<Radio />} label="Asc" />
+                  <FormControlLabel value="desc" control={<Radio sx={{ color: "#ffa726", '&.Mui-checked': { color: "#ffb74d" } }} />} label="Desc" />
+                  <FormControlLabel value="asc" control={<Radio sx={{ color: "#ffa726", '&.Mui-checked': { color: "#ffb74d" } }} />} label="Asc" />
                 </RadioGroup>
               </FormControl>
-              <TextField className='search' name='find' value={inputs.find} onChange={handleChange} size='small' id="outlined-search" label="Search field" type="search" />
+              <TextField sx={{
+                marginRight: '15px',
+                '& label': {
+                  color: '#fff',
+                },
+                '& label.Mui-focused': {
+                  color: '#fff',
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#aeb5d0',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#fff',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#fff',
+                  },
+                },
+              }} className='search' name='find' value={inputs.find} onChange={handleChange} size='small' id="outlined-search" label="Search field" type="search" />
               <FormControl name="filter" className='filter'>
-                <FormLabel id="demo-row-radio-buttons-group-label">Filter By</FormLabel>
+                <FormLabel sx={{ color: "#aeb5d0", '&.Mui-focused': { color: "#ffb74d" } }} id="demo-row-radio-buttons-group-label">Filter By</FormLabel>
                 <RadioGroup
+                  sx={{ color: '#fff' }}
                   row
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="filter"
                   value={inputs.filter}
                   onChange={handleChange}
                 >
-                  <FormControlLabel value="rate" control={<Radio />} label="Rate" />
-                  <FormControlLabel value="price" control={<Radio />} label="Price" />
+                  <FormControlLabel value="rate" control={<Radio sx={{ color: "#ffa726", '&.Mui-checked': { color: "#ffb74d" } }} />} label="Rate" />
+                  <FormControlLabel value="price" control={<Radio sx={{ color: "#ffa726", '&.Mui-checked': { color: "#ffb74d" } }} />} label="Price" />
                 </RadioGroup>
               </FormControl>
-              <Box className='slider' sx={{ width: 250 }}>
-                <Slider sx={{ margin: '-18px 0px' }} getAriaLabel={() => 'Filter Range'}
+              <Box className='slider' sx={{ width: 220, marginRight: '18px' }}>
+                <Slider sx={{ margin: '-18px 0px', color: 'aliceblue' }} getAriaLabel={() => 'Filter Range'}
                   min={inputs.filter === 'rate' ? 1 : 0}
                   max={inputs.filter === 'rate' ? 5 : 20000}
                   name="range"
@@ -149,8 +170,8 @@ function Hotel() {
                   valueLabelDisplay="auto"
                 />
               </Box>
-              <Button type="submit" color="inherit">Apply</Button>
-              <Button type="button" onClick={clearFilters} color="inherit">Clear Filters</Button>
+              <Button size="medium" variant="outlined" type="submit" color="inherit">Apply</Button>
+              <Button size="medium" variant="outlined" type="button" onClick={clearFilters} color="inherit">Clear Filters</Button>
             </form>
           </Toolbar>
         </AppBar>
