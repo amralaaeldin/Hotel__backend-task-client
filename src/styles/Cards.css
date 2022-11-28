@@ -1,0 +1,70 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 100px;
+  min-height: calc(100vh - 200px);
+}
+
+.card {
+  margin: 15px 0;
+}
+
+.card:hover {
+  box-shadow: rgb(201, 182, 182) 0px 0.5px 4px 0.5px;
+  transition: all 0.2s;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.card p.details {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 60px;
+  margin-bottom: 10px;
+}
+
+span.amenities {
+  font-weight: 500;
+  color: #303235;
+  line-height: 1.6em;
+}
+span.amenities span {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pages {
+  margin-top: 15px;
+}
+
+.error {
+  color: rgb(167, 57, 57);
+}
+
+.stars {
+  color: rgb(250, 175, 0);
+}
+
+.discount {
+  text-decoration: line-through;
+  color: rgb(191, 63, 63);
+  font-weight: 500;
+  font-size: 0.7em;
+  letter-spacing: 1px;
+}
+
+.price {
+  color: rgb(68, 183, 68);
+  font-weight: 500;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
