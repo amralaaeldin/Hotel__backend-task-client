@@ -12,17 +12,6 @@
   background-color: aliceblue;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -36,15 +25,6 @@
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .logo {
@@ -62,16 +42,66 @@ form.actions {
   flex-grow: 0.5;
 }
 
+form.actions .elements {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
 input[name="find"] {
   color: #ddd;
+}
+
+div.btns {
+  display: flex;
+  justify-content: space-between;
+  width: 225px;
+  margin: 0 20px;
+}
+
+div.sorting {
+  display: flex;
+  justify-content: space-between;
+  width: 310px;
+}
+
+@media (max-width: 1440px) {
+  .toolbar {
+    flex-direction: column;
+  }
+
+  div.logo {
+    margin-bottom: 15px;
+  }
+
+  form.actions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  form.actions .elements {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 1200px) {
+  form.actions {
+    padding-bottom: 15px;
+  }
 }
 
 .sort-by .MuiInputBase-root fieldset {
   border-color: #aeb5d0;
 }
+
 .sort-by .MuiInputBase-root:hover fieldset {
   border-color: #fff;
 }
+
 .sort-by .MuiInputBase-root.Mui-focused fieldset {
   border-color: #fff;
 }
