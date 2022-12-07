@@ -16,16 +16,8 @@ function Hotel() {
   const fetchHotels = async () => {
     setIsLoading(true)
     try {
-      const res = await fetch(`http://hotelsapp-env.eba-p2xgaaqm.us-east-1.elasticbeanstalk.com/?format=json&page=${page}${params ? `&${params}` : ''}`, {
-      // const res = await fetch(`https://hotels-php-amralaaeldin.000webhostapp.com/?format=json&page=${page}${params ? `&${params}` : ''}`, {
-        // const res = await fetch(`http://localhost:8082/?format=json&page=${page}${params ? `&${params}` : ''}`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        }
-      })
+      const res = await fetch(`https://hotels-php-amralaaeldin.000webhostapp.com/?format=json&page=${page}${params ? `&${params}` : ''}`)
       const data = await res.json()
-      console.log('res', res)
-      console.log('data', data)
       setData(data)
       setIsLoading(false)
     } catch (err) {
