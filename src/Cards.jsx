@@ -34,7 +34,7 @@ function Cards({ data, changePage, isLoading, error }) {
             </p>
           </Card>
         )))}
-      {data?.data?.length === 0 && 'No data matches'}
+      {!isLoading && data?.data?.length === 0 && 'No data matches'}
       {!isLoading && !error && data.pages > 0 && <Stack className='pages' spacing={2}>
         <Pagination page={data.currentPage} count={data.pages} onChange={changePage} variant="outlined" shape="rounded" />
       </Stack>}
