@@ -9,9 +9,7 @@ I worked on it using plain PHP, can't forget great help by [Eng. Hoda Hussin](ht
 The task is to request several data providers, organize this data to be in the same format, keynames and so on, apply filtering, sorting and paginating it.
 
 - Backend side is now live on: https://hotels-php-amralaaeldin.000webhostapp.com/
+  `Note` This will return all data comes from the providers
+  `Code` https://github.com/amralaaeldin/Hotel__backend-task
 
-`Note` This will return all data comes from the providers
-
-Code: https://github.com/amralaaeldin/Hotel__backend-task
-
-- The client is now available live on: https://hotels-client-amralaaeldin.vercel.app/
+- The client side is now available live on: https://hotels-client-amralaaeldin.vercel.app/
