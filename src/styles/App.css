@@ -13,3 +13,12 @@
   background-color: aliceblue;
   min-height: 100vh;
 }
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 100px;
+  min-height: 240px;
+}

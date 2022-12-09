@@ -11,9 +11,15 @@ const getRate = (rate) => {
   return starsArr.slice(5 - rate, 10 - rate)
 }
 function Cards({ data, changePage, isLoading, error }) {
+
+  if (isLoading) return 'Loading...';
+  if (error) return <p className='error'>Error</p>;
+  if (!isLoading && !error && data?.data?.length === 0) return 'No data matches';
+
+
   return (
-    <div className='cards'>
-      {isLoading ? 'Loading...' : error ? <p className='error'>error</p> :
+    <>
+      {!isLoading && !error &&
         (data.data && data.data.map((hotel, i) => (
           <Card className='card' key={hotel.name + i} sx={{ maxWidth: 345 }}>
             <CardContent>
@@ -34,11 +40,10 @@ function Cards({ data, changePage, isLoading, error }) {
             </p>
           </Card>
         )))}
-      {!isLoading && data?.data?.length === 0 && 'No data matches'}
-      {!isLoading && !error && data.pages > 0 && <Stack className='pages' spacing={2}>
+      <Stack className='pages' spacing={2}>
         <Pagination page={data.currentPage} count={data.pages} onChange={changePage} variant="outlined" shape="rounded" />
-      </Stack>}
-    </div>
+      </Stack>
+    </>
   );
 }
 

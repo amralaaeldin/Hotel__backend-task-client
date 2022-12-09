@@ -62,7 +62,9 @@ function Hotel() {
   return (
     <>
       <Bar inputs={inputs} handleChange={handleChange} handleSubmit={handleSubmit} clearFilters={clearFilters} />
-      <Cards data={data} changePage={changePage} isLoading={isLoading} error={error} />
+      <div className='cards'>
+        <Cards data={data} changePage={changePage} isLoading={isLoading} error={error} />
+      </div>
     </>
   );
 }
